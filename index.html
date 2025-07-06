@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <title>LocalStorage & Cookie テスト</title>
+</head>
+<body>
+    <h1>LocalStorage & Cookie テスト</h1>
+    
+    <h2>LocalStorage</h2>
+    <button onclick="saveToLocalStorage()">test1をLocalStorageに保存</button>
+    <button onclick="displayFromLocalStorage()">LocalStorageから表示</button>
+    <p id="localStorageResult"></p>
+    
+    <h2>Cookie</h2>
+    <button onclick="saveToCookie()">test2をCookieに保存</button>
+    <button onclick="displayFromCookie()">Cookieから表示</button>
+    <p id="cookieResult"></p>
+
+    <hr>
+
+    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">google chrome、サードパーティーcookieという名前の機能をオフにするとlocal storageもオフになるんだがなんの冗談だ</p>&mdash; ねりねりねるね (@t9jyc) <a href="https://twitter.com/t9jyc/status/1940467278442909948?ref_src=twsrc%5Etfw">July 2, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    <script>
+        function saveToLocalStorage() {
+            localStorage.setItem('data', 'test1');
+            alert('test1をLocalStorageに保存しました');
+        }
+
+        function displayFromLocalStorage() {
+            const data = localStorage.getItem('data');
+            document.getElementById('localStorageResult').textContent = 
+                data ? `LocalStorage: ${data}` : 'LocalStorageにデータがありません';
+        }
+
+        function saveToCookie() {
+            document.cookie = 'data=test2; path=/';
+            alert('test2をCookieに保存しました');
+        }
+
+        function displayFromCookie() {
+            const cookies = document.cookie.split(';');
+            let cookieValue = '';
+            
+            for (let cookie of cookies) {
+                const [name, value] = cookie.trim().split('=');
+                if (name === 'data') {
+                    cookieValue = value;
+                    break;
+                }
+            }
+            
+            document.getElementById('cookieResult').textContent = 
+                cookieValue ? `Cookie: ${cookieValue}` : 'Cookieにデータがありません';
+        }
+    </script>
+</body>
+</html>
